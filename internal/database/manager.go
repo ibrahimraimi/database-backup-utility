@@ -124,7 +124,7 @@ func (m *Manager) testMongoConnection() error {
 	}
 
 	// Test the connection
-	if err := client.Ping(nil, nil); err != nil {
+	if err := client.Ping(context.TODO(), nil); err != nil {
 		return fmt.Errorf("failed to ping MongoDB: %w", err)
 	}
 
