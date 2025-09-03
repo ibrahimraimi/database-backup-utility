@@ -1,0 +1,37 @@
+# Database Backup Utility Configuration Example
+# Copy this file to ~/.db-backup.yaml and modify as needed
+
+# Logging configuration
+log:
+  level: "info" # debug, info, warn, error
+  format: "json" # json, text
+
+# Storage configuration
+storage:
+  type: "local" # local, cloud
+  path: "./backups"
+
+# Cloud storage configuration (when storage.type is "cloud")
+cloud:
+  provider: "aws" # aws, gcp, azure
+  bucket: "my-backup-bucket"
+  region: "us-east-1"
+  access_key: "" # Set via environment variable AWS_ACCESS_KEY_ID
+  secret_key: "" # Set via environment variable AWS_SECRET_ACCESS_KEY
+
+# Notification configuration
+notify:
+  enabled: false
+  type: "slack" # slack, discord
+  webhook: "" # Webhook URL for notifications
+  channel: "" # Channel name (for Slack)
+
+# Database connection examples (these are just examples, use command line flags for actual connections)
+database:
+  type: "mysql"
+  host: "localhost"
+  port: "3306"
+  username: "root"
+  password: ""
+  database: "mydb"
+  connection_string: ""
