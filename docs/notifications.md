@@ -25,7 +25,7 @@ This guide covers setting up and configuring notifications for the Database Back
 ### Configuration
 
 ```yaml
-# ~/.db-backup.yaml
+# ~/.dbu.yaml
 notify:
   enabled: true
   type: "slack"
@@ -45,7 +45,7 @@ export SLACK_CHANNEL="#backups"
 #### Basic Backup with Slack Notification
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -129,7 +129,7 @@ export SLACK_BOT_TOKEN="xoxb-your-bot-token"
 ### Configuration
 
 ```yaml
-# ~/.db-backup.yaml
+# ~/.dbu.yaml
 notify:
   enabled: true
   type: "discord"
@@ -149,7 +149,7 @@ export DISCORD_CHANNEL="backups"
 #### Basic Backup with Discord Notification
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -231,7 +231,7 @@ export DISCORD_CHANNEL="backups"
 ### Multiple Notification Channels
 
 ```yaml
-# ~/.db-backup.yaml
+# ~/.dbu.yaml
 notify:
   enabled: true
   type: "slack"
@@ -251,7 +251,7 @@ notify:
 ### Conditional Notifications
 
 ```yaml
-# ~/.db-backup.yaml
+# ~/.dbu.yaml
 notify:
   enabled: true
   type: "slack"
@@ -271,7 +271,7 @@ notify:
 ### Notification Templates
 
 ```yaml
-# ~/.db-backup.yaml
+# ~/.dbu.yaml
 notify:
   enabled: true
   type: "slack"
@@ -308,7 +308,7 @@ curl -X POST -H 'Content-type: application/json' \
 
 ```bash
 # Test with a small backup
-./db-backup backup \
+./dbu backup \
   --db-type sqlite \
   --database ./test.db \
   --compress
@@ -352,7 +352,7 @@ send_notification() {
 }
 
 # Usage in backup script
-./db-backup backup --db-type mysql --database mydb --compress
+./dbu backup --db-type mysql --database mydb --compress
 
 if [ $? -eq 0 ]; then
     send_notification "success" "mydb" "Backup completed successfully"
@@ -400,7 +400,7 @@ send_notification "Database backup completed successfully"
 # health-check.sh
 
 # Check if backup utility is working
-if ! ./db-backup test --db-type mysql --host localhost --username root --password mypass --database mydb; then
+if ! ./dbu test --db-type mysql --host localhost --username root --password mypass --database mydb; then
     # Send alert
     curl -X POST -H 'Content-type: application/json' \
       --data '{"text":"🚨 Database Backup Utility health check failed"}' \
@@ -483,7 +483,7 @@ sleep 1  # Wait 1 second between notifications
 
 ```bash
 # Enable debug logging to see notification details
-./db-backup --log-level debug backup --db-type mysql --database mydb
+./dbu --log-level debug backup --db-type mysql --database mydb
 ```
 
 ## Best Practices

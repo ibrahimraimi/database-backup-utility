@@ -146,6 +146,13 @@ func (m *Manager) generateBackupFilename() string {
 	database := m.config.Database
 	backupType := m.config.BackupType
 
+	// For SQLite, extract just the filename from the path
+	if strings.ToLower(m.config.DBType) == "sqlite" {
+		database = filepath.Base(database)
+		// Remove the .db extension for the filename
+		database = strings.TrimSuffix(database, ".db")
+	}
+
 	extension := ".sql"
 	if strings.ToLower(m.config.DBType) == "mongodb" {
 		extension = ".bson"

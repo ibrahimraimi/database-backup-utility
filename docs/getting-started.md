@@ -31,7 +31,7 @@ go install github.com/ibrahimraimi/database-backup-utility@latest
 docker pull ibrahimraimi/database-backup-utility:latest
 
 # Or build locally
-docker build -t db-backup .
+docker build -t dbu .
 ```
 
 ## Quick Start
@@ -42,23 +42,23 @@ Before creating backups, always test your database connection:
 
 ```bash
 # MySQL
-./db-backup test --db-type mysql --host localhost --username root --password mypassword --database mydb
+./dbu test --db-type mysql --host localhost --username root --password mypassword --database mydb
 
 # PostgreSQL
-./db-backup test --db-type postgres --host localhost --username postgres --password mypassword --database mydb
+./dbu test --db-type postgres --host localhost --username postgres --password mypassword --database mydb
 
 # MongoDB
-./db-backup test --db-type mongodb --host localhost --username admin --password mypassword --database mydb
+./dbu test --db-type mongodb --host localhost --username admin --password mypassword --database mydb
 
 # SQLite
-./db-backup test --db-type sqlite --database /path/to/database.db
+./dbu test --db-type sqlite --database /path/to/database.db
 ```
 
 ### 2. Create Your First Backup
 
 ```bash
 # MySQL backup
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -68,7 +68,7 @@ Before creating backups, always test your database connection:
   --compress
 
 # PostgreSQL backup
-./db-backup backup \
+./dbu backup \
   --db-type postgres \
   --host localhost \
   --username postgres \
@@ -78,7 +78,7 @@ Before creating backups, always test your database connection:
   --compress
 
 # MongoDB backup
-./db-backup backup \
+./dbu backup \
   --db-type mongodb \
   --host localhost \
   --username admin \
@@ -88,7 +88,7 @@ Before creating backups, always test your database connection:
   --compress
 
 # SQLite backup
-./db-backup backup \
+./dbu backup \
   --db-type sqlite \
   --database /path/to/database.db \
   --type full \
@@ -99,7 +99,7 @@ Before creating backups, always test your database connection:
 
 ```bash
 # Restore MySQL backup
-./db-backup restore \
+./dbu restore \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -108,7 +108,7 @@ Before creating backups, always test your database connection:
   --file ./backups/mysql_mydb_full_2024-01-15_10-30-00.sql.gz
 
 # Restore PostgreSQL backup
-./db-backup restore \
+./dbu restore \
   --db-type postgres \
   --host localhost \
   --username postgres \
@@ -117,7 +117,7 @@ Before creating backups, always test your database connection:
   --file ./backups/postgres_mydb_full_2024-01-15_10-30-00.sql.gz
 
 # Restore MongoDB backup
-./db-backup restore \
+./dbu restore \
   --db-type mongodb \
   --host localhost \
   --username admin \
@@ -126,7 +126,7 @@ Before creating backups, always test your database connection:
   --file ./backups/mongodb_mydb_full_2024-01-15_10-30-00.bson.gz
 
 # Restore SQLite backup
-./db-backup restore \
+./dbu restore \
   --db-type sqlite \
   --database /path/to/database.db \
   --file ./backups/sqlite_database_full_2024-01-15_10-30-00.db.gz
@@ -136,7 +136,7 @@ Before creating backups, always test your database connection:
 
 ### Basic Configuration
 
-Create a configuration file at `~/.db-backup.yaml`:
+Create a configuration file at `~/.dbu.yaml`:
 
 ```yaml
 # Logging configuration
@@ -178,11 +178,11 @@ export AWS_REGION=us-east-1
 
 ### Global Flags
 
-| Flag           | Description                          | Default             |
-| -------------- | ------------------------------------ | ------------------- |
-| `--config`     | Path to configuration file           | `~/.db-backup.yaml` |
-| `--log-level`  | Log level (debug, info, warn, error) | `info`              |
-| `--log-format` | Log format (json, text)              | `json`              |
+| Flag           | Description                          | Default       |
+| -------------- | ------------------------------------ | ------------- |
+| `--config`     | Path to configuration file           | `~/.dbu.yaml` |
+| `--log-level`  | Log level (debug, info, warn, error) | `info`        |
+| `--log-format` | Log format (json, text)              | `json`        |
 
 ### Database Connection Flags
 
@@ -243,7 +243,7 @@ If you encounter issues:
 
 ## Getting Help
 
-- Use `./db-backup --help` for general help
-- Use `./db-backup <command> --help` for command-specific help
+- Use `./dbu --help` for general help
+- Use `./dbu <command> --help` for command-specific help
 - Check the logs for detailed error information
 - Review the troubleshooting guide for common issues

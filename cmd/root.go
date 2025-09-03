@@ -12,7 +12,7 @@ var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "db-backup",
+	Use:   "dbu",
 	Short: "A database backup utility that can backup and restore any DB",
 	Long: `A command-line interface (CLI) utility for backing up any type of database.
 The utility supports various database management systems (DBMS) such as MySQL, 
@@ -30,7 +30,7 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	// Global flags
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.db-backup.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.dbu.yaml)")
 	rootCmd.PersistentFlags().String("log-level", "info", "log level (debug, info, warn, error)")
 	rootCmd.PersistentFlags().String("log-format", "json", "log format (json, text)")
 
@@ -49,11 +49,11 @@ func initConfig() {
 		home, err := os.UserHomeDir()
 		cobra.CheckErr(err)
 
-		// Search config in home directory with name ".db-backup" (without extension).
+		// Search config in home directory with name ".dbu" (without extension).
 		viper.AddConfigPath(home)
 		viper.AddConfigPath(".")
 		viper.SetConfigType("yaml")
-		viper.SetConfigName(".db-backup")
+		viper.SetConfigName(".dbu")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match

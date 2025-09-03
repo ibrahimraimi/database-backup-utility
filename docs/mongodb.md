@@ -13,7 +13,7 @@ This guide covers using the Database Backup Utility with MongoDB databases.
 ### Basic Connection Test
 
 ```bash
-./db-backup test \
+./dbu test \
   --db-type mongodb \
   --host localhost \
   --port 27017 \
@@ -25,7 +25,7 @@ This guide covers using the Database Backup Utility with MongoDB databases.
 ### Connection with Custom Port
 
 ```bash
-./db-backup test \
+./dbu test \
   --db-type mongodb \
   --host 192.168.1.100 \
   --port 27018 \
@@ -37,7 +37,7 @@ This guide covers using the Database Backup Utility with MongoDB databases.
 ### Connection String Method
 
 ```bash
-./db-backup test \
+./dbu test \
   --db-type mongodb \
   --connection-string "mongodb://admin:mypassword@localhost:27017/mydb"
 ```
@@ -45,7 +45,7 @@ This guide covers using the Database Backup Utility with MongoDB databases.
 ### Connection with Authentication Database
 
 ```bash
-./db-backup test \
+./dbu test \
   --db-type mongodb \
   --connection-string "mongodb://admin:mypassword@localhost:27017/mydb?authSource=admin"
 ```
@@ -55,7 +55,7 @@ This guide covers using the Database Backup Utility with MongoDB databases.
 ### Full Database Backup
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type mongodb \
   --host localhost \
   --username admin \
@@ -68,7 +68,7 @@ This guide covers using the Database Backup Utility with MongoDB databases.
 ### Selective Collection Backup
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type mongodb \
   --host localhost \
   --username admin \
@@ -81,7 +81,7 @@ This guide covers using the Database Backup Utility with MongoDB databases.
 ### Backup to Custom Location
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type mongodb \
   --host localhost \
   --username admin \
@@ -95,7 +95,7 @@ This guide covers using the Database Backup Utility with MongoDB databases.
 ### Incremental Backup
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type mongodb \
   --host localhost \
   --username admin \
@@ -110,7 +110,7 @@ This guide covers using the Database Backup Utility with MongoDB databases.
 ### Full Database Restore
 
 ```bash
-./db-backup restore \
+./dbu restore \
   --db-type mongodb \
   --host localhost \
   --username admin \
@@ -122,7 +122,7 @@ This guide covers using the Database Backup Utility with MongoDB databases.
 ### Selective Collection Restore
 
 ```bash
-./db-backup restore \
+./dbu restore \
   --db-type mongodb \
   --host localhost \
   --username admin \
@@ -135,7 +135,7 @@ This guide covers using the Database Backup Utility with MongoDB databases.
 ### Restore with Drop Existing Collections
 
 ```bash
-./db-backup restore \
+./dbu restore \
   --db-type mongodb \
   --host localhost \
   --username admin \
@@ -205,7 +205,7 @@ db.createUser({
 ### MongoDB-Specific Configuration
 
 ```yaml
-# ~/.db-backup.yaml
+# ~/.dbu.yaml
 log:
   level: "info"
   format: "json"
@@ -242,7 +242,7 @@ export MONGODB_AUTH_SOURCE=admin
 
 ```bash
 #!/bin/bash
-# mongodb-backup.sh
+# mongodbu.sh
 
 # Configuration
 DB_HOST="localhost"
@@ -253,7 +253,7 @@ BACKUP_DIR="/var/backups/mongodb"
 DATE=$(date +%Y%m%d_%H%M%S)
 
 # Create backup
-./db-backup backup \
+./dbu backup \
   --db-type mongodb \
   --host $DB_HOST \
   --username $DB_USER \
@@ -285,7 +285,7 @@ fi
 
 ```bash
 # Add to crontab for daily backups at 2 AM
-0 2 * * * /path/to/mongodb-backup.sh
+0 2 * * * /path/to/mongodbu.sh
 
 # Add to crontab for hourly incremental backups
 0 * * * * /path/to/mongodb-incremental-backup.sh
@@ -295,7 +295,7 @@ fi
 
 ```bash
 # Backup MongoDB running in Docker
-./db-backup backup \
+./dbu backup \
   --db-type mongodb \
   --host localhost \
   --port 27017 \
@@ -305,7 +305,7 @@ fi
   --compress
 
 # Using Docker Compose
-docker-compose exec db-backup ./db-backup backup \
+docker-compose exec dbu ./dbu backup \
   --db-type mongodb \
   --host mongodb \
   --username admin \
@@ -320,12 +320,12 @@ docker-compose exec db-backup ./db-backup backup \
 
 ```bash
 # Test connection to replica set
-./db-backup test \
+./dbu test \
   --db-type mongodb \
   --connection-string "mongodb://admin:mypassword@mongodb1:27017,mongodb2:27017,mongodb3:27017/mydb?replicaSet=rs0"
 
 # Backup from replica set
-./db-backup backup \
+./dbu backup \
   --db-type mongodb \
   --connection-string "mongodb://admin:mypassword@mongodb1:27017,mongodb2:27017,mongodb3:27017/mydb?replicaSet=rs0" \
   --compress
@@ -335,12 +335,12 @@ docker-compose exec db-backup ./db-backup backup \
 
 ```bash
 # Test connection to sharded cluster
-./db-backup test \
+./dbu test \
   --db-type mongodb \
   --connection-string "mongodb://admin:mypassword@mongos1:27017,mongos2:27017/mydb"
 
 # Backup from sharded cluster
-./db-backup backup \
+./dbu backup \
   --db-type mongodb \
   --connection-string "mongodb://admin:mypassword@mongos1:27017,mongos2:27017/mydb" \
   --compress
@@ -395,10 +395,10 @@ zcat ./backups/mongodb_mydb_full_2024-01-15_10-30-00.bson.gz | head -20
 ```bash
 # For large databases, consider:
 # 1. Use incremental backups
-./db-backup backup --db-type mongodb --type incremental
+./dbu backup --db-type mongodb --type incremental
 
 # 2. Backup specific collections only
-./db-backup backup --db-type mongodb --tables "important_collection1,important_collection2"
+./dbu backup --db-type mongodb --tables "important_collection1,important_collection2"
 
 # 3. Use MongoDB's native mongodump for very large databases
 # 4. Consider using MongoDB's oplog for incremental backups

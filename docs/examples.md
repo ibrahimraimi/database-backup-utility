@@ -17,7 +17,7 @@ DB_PASS="mypassword"
 DB_NAME="mydb"
 
 # Create backup
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host $DB_HOST \
   --username $DB_USER \
@@ -42,7 +42,7 @@ DB_PASS="mypassword"
 DB_NAME="mydb"
 
 # Create backup
-./db-backup backup \
+./dbu backup \
   --db-type postgres \
   --host $DB_HOST \
   --username $DB_USER \
@@ -58,7 +58,7 @@ echo "Backup completed!"
 
 ```bash
 #!/bin/bash
-# simple-mongodb-backup.sh
+# simple-mongodbu.sh
 
 # Configuration
 DB_HOST="localhost"
@@ -67,7 +67,7 @@ DB_PASS="mypassword"
 DB_NAME="mydb"
 
 # Create backup
-./db-backup backup \
+./dbu backup \
   --db-type mongodb \
   --host $DB_HOST \
   --username $DB_USER \
@@ -89,7 +89,7 @@ echo "Backup completed!"
 DB_PATH="/path/to/database.db"
 
 # Create backup
-./db-backup backup \
+./dbu backup \
   --db-type sqlite \
   --database $DB_PATH \
   --type full \
@@ -120,7 +120,7 @@ mkdir -p $BACKUP_DIR
 
 # Create backup
 echo "Starting MySQL backup for $DB_NAME at $(date)"
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host $DB_HOST \
   --username $DB_USER \
@@ -175,7 +175,7 @@ mkdir -p $BACKUP_DIR
 
 # Create backup
 echo "Starting PostgreSQL backup for $DB_NAME at $(date)"
-./db-backup backup \
+./dbu backup \
   --db-type postgres \
   --host $DB_HOST \
   --username $DB_USER \
@@ -250,7 +250,7 @@ for db_name in "${!DATABASES[@]}"; do
 
     echo "Starting backup for $db_name ($db_type) at $(date)"
 
-    ./db-backup backup \
+    ./dbu backup \
         --db-type $db_type \
         --host $host \
         --username $username \
@@ -298,7 +298,7 @@ S3_REGION="us-east-1"
 
 # Create backup and upload to S3
 echo "Starting backup to S3 for $DB_NAME at $(date)"
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host $DB_HOST \
   --username $DB_USER \
@@ -349,7 +349,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="/path/to/service-account.json"
 
 # Create backup and upload to GCS
 echo "Starting backup to GCS for $DB_NAME at $(date)"
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host $DB_HOST \
   --username $DB_USER \
@@ -401,7 +401,7 @@ export AZURE_STORAGE_KEY="my_storage_key"
 
 # Create backup and upload to Azure
 echo "Starting backup to Azure for $DB_NAME at $(date)"
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host $DB_HOST \
   --username $DB_USER \
@@ -450,7 +450,7 @@ BACKUP_FILE="/var/backups/mysql/mysql_production_db_full_2024-01-15_10-30-00.sql
 
 # Restore database
 echo "Starting MySQL restore for $DB_NAME at $(date)"
-./db-backup restore \
+./dbu restore \
   --db-type mysql \
   --host $DB_HOST \
   --username $DB_USER \
@@ -496,7 +496,7 @@ BACKUP_FILE="/var/backups/postgresql/postgres_production_db_full_2024-01-15_10-3
 
 # Restore database
 echo "Starting PostgreSQL restore for $DB_NAME at $(date)"
-./db-backup restore \
+./dbu restore \
   --db-type postgres \
   --host $DB_HOST \
   --username $DB_USER \
@@ -542,7 +542,7 @@ BACKUP_FILE="/var/backups/mongodb/mongodb_production_db_full_2024-01-15_10-30-00
 
 # Restore database
 echo "Starting MongoDB restore for $DB_NAME at $(date)"
-./db-backup restore \
+./dbu restore \
   --db-type mongodb \
   --host $DB_HOST \
   --username $DB_USER \
@@ -589,7 +589,7 @@ sudo systemctl stop your-app
 
 # Restore database
 echo "Starting SQLite restore at $(date)"
-./db-backup restore \
+./dbu restore \
   --db-type sqlite \
   --database $DB_PATH \
   --file $BACKUP_FILE
@@ -632,7 +632,7 @@ fi
 0 3 * * * /path/to/production-postgres-backup.sh
 
 # Add to crontab for daily MongoDB backups at 4 AM
-0 4 * * * /path/to/production-mongodb-backup.sh
+0 4 * * * /path/to/production-mongodbu.sh
 ```
 
 ### Hourly Incremental Backup Cron Job
@@ -666,7 +666,7 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
-  db-backup:
+  dbu:
     build: .
     depends_on:
       - mysql
@@ -679,7 +679,7 @@ services:
       - DB_NAME=mydb
     command: >
       sh -c "
-        ./db-backup backup \
+        ./dbu backup \
           --db-type mysql \
           --host mysql \
           --username root \
@@ -712,7 +712,7 @@ mkdir -p $BACKUP_DIR
 docker run --rm \
   --network host \
   -v $(pwd)/backups:/backups \
-  db-backup:latest \
+  dbu:latest \
   backup \
   --db-type mysql \
   --host localhost \
@@ -785,7 +785,7 @@ DB_NAME="health_check_db"
 
 # Test database connection
 echo "Testing database connection..."
-./db-backup test \
+./dbu test \
   --db-type mysql \
   --host $DB_HOST \
   --username $DB_USER \

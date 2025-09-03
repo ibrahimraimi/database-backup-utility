@@ -20,19 +20,19 @@ This directory contains comprehensive documentation for using the Database Backu
 ### Test Database Connection
 
 ```bash
-./db-backup test --db-type <database_type> --host <host> --username <user> --password <pass> --database <db_name>
+./dbu test --db-type <database_type> --host <host> --username <user> --password <pass> --database <db_name>
 ```
 
 ### Create Backup
 
 ```bash
-./db-backup backup --db-type <database_type> --host <host> --username <user> --password <pass> --database <db_name> --compress
+./dbu backup --db-type <database_type> --host <host> --username <user> --password <pass> --database <db_name> --compress
 ```
 
 ### Restore Backup
 
 ```bash
-./db-backup restore --db-type <database_type> --host <host> --username <user> --password <pass> --database <db_name> --file <backup_file>
+./dbu restore --db-type <database_type> --host <host> --username <user> --password <pass> --database <db_name> --file <backup_file>
 ```
 
 ## Supported Database Types

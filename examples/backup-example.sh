@@ -19,7 +19,7 @@ echo "=================================="
 mkdir -p $BACKUP_DIR
 
 echo "📋 Testing database connection..."
-./db-backup test \
+./dbu test \
   --db-type mysql \
   --host $DB_HOST \
   --username $DB_USER \
@@ -27,7 +27,7 @@ echo "📋 Testing database connection..."
   --database $DB_NAME
 
 echo "💾 Creating full backup..."
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host $DB_HOST \
   --username $DB_USER \
@@ -44,4 +44,4 @@ ls -la $BACKUP_DIR/
 echo "✅ Example completed successfully!"
 echo ""
 echo "To restore a backup, use:"
-echo "./db-backup restore --db-type mysql --host $DB_HOST --username $DB_USER --password $DB_PASS --database $DB_NAME --file <backup-file>"
+echo "./dbu restore --db-type mysql --host $DB_HOST --username $DB_USER --password $DB_PASS --database $DB_NAME --file <backup-file>"

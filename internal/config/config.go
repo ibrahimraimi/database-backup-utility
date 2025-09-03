@@ -65,7 +65,7 @@ func Load() (*Config, error) {
 		return nil, fmt.Errorf("failed to get home directory: %w", err)
 	}
 
-	configPath := filepath.Join(homeDir, ".db-backup.yaml")
+	configPath := filepath.Join(homeDir, ".dbu.yaml")
 	viper.SetConfigFile(configPath)
 
 	// Read config file if it exists
@@ -87,6 +87,18 @@ func Load() (*Config, error) {
 	return &config, nil
 }
 
+// DefaultConfig returns a configuration with default values
+func DefaultConfig() *Config {
+	return &Config{
+		LogLevel:  "info",
+		LogFormat: "json",
+		Storage: StorageConfig{
+			Type: "local",
+			Path: "./backups",
+		},
+	}
+}
+
 // Save saves configuration to file
 func (c *Config) Save() error {
 	homeDir, err := os.UserHomeDir()
@@ -94,7 +106,7 @@ func (c *Config) Save() error {
 		return fmt.Errorf("failed to get home directory: %w", err)
 	}
 
-	configPath := filepath.Join(homeDir, ".db-backup.yaml")
+	configPath := filepath.Join(homeDir, ".dbu.yaml")
 
 	// Set values in viper
 	viper.Set("log_level", c.LogLevel)

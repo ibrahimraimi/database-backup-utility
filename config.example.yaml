@@ -1,5 +1,5 @@
 # Database Backup Utility Configuration Example
-# Copy this file to ~/.db-backup.yaml and modify as needed
+# Copy this file to ~/.dbu.yaml and modify as needed
 
 # Logging configuration
 log:

@@ -37,7 +37,7 @@ RUN adduser -D -s /bin/sh dbbackup
 WORKDIR /app
 
 # Copy binary from builder stage
-COPY --from=builder /app/build/db-backup /usr/local/bin/db-backup
+COPY --from=builder /app/build/dbu /usr/local/bin/dbu
 
 # Create backup directory
 RUN mkdir -p /backups && chown dbbackup:dbbackup /backups
@@ -54,7 +54,7 @@ ENV LOG_FORMAT=json
 VOLUME ["/backups"]
 
 # Set entrypoint
-ENTRYPOINT ["db-backup"]
+ENTRYPOINT ["dbu"]
 
 # Default command
 CMD ["--help"]

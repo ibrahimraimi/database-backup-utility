@@ -13,7 +13,7 @@ This guide covers using the Database Backup Utility with MySQL databases.
 ### Basic Connection Test
 
 ```bash
-./db-backup test \
+./dbu test \
   --db-type mysql \
   --host localhost \
   --port 3306 \
@@ -25,7 +25,7 @@ This guide covers using the Database Backup Utility with MySQL databases.
 ### Connection with Custom Port
 
 ```bash
-./db-backup test \
+./dbu test \
   --db-type mysql \
   --host 192.168.1.100 \
   --port 3307 \
@@ -37,7 +37,7 @@ This guide covers using the Database Backup Utility with MySQL databases.
 ### Connection String Method
 
 ```bash
-./db-backup test \
+./dbu test \
   --db-type mysql \
   --connection-string "root:mypassword@tcp(localhost:3306)/mydb?parseTime=true"
 ```
@@ -47,7 +47,7 @@ This guide covers using the Database Backup Utility with MySQL databases.
 ### Full Database Backup
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -60,7 +60,7 @@ This guide covers using the Database Backup Utility with MySQL databases.
 ### Selective Table Backup
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -73,7 +73,7 @@ This guide covers using the Database Backup Utility with MySQL databases.
 ### Backup to Custom Location
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -87,7 +87,7 @@ This guide covers using the Database Backup Utility with MySQL databases.
 ### Incremental Backup
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -102,7 +102,7 @@ This guide covers using the Database Backup Utility with MySQL databases.
 ### Full Database Restore
 
 ```bash
-./db-backup restore \
+./dbu restore \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -114,7 +114,7 @@ This guide covers using the Database Backup Utility with MySQL databases.
 ### Selective Table Restore
 
 ```bash
-./db-backup restore \
+./dbu restore \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -127,7 +127,7 @@ This guide covers using the Database Backup Utility with MySQL databases.
 ### Restore with Drop Existing Tables
 
 ```bash
-./db-backup restore \
+./dbu restore \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -174,7 +174,7 @@ FLUSH PRIVILEGES;
 ### MySQL-Specific Configuration
 
 ```yaml
-# ~/.db-backup.yaml
+# ~/.dbu.yaml
 log:
   level: "info"
   format: "json"
@@ -220,7 +220,7 @@ BACKUP_DIR="/var/backups/mysql"
 DATE=$(date +%Y%m%d_%H%M%S)
 
 # Create backup
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host $DB_HOST \
   --username $DB_USER \
@@ -262,7 +262,7 @@ fi
 
 ```bash
 # Backup MySQL running in Docker
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host localhost \
   --port 3306 \
@@ -272,7 +272,7 @@ fi
   --compress
 
 # Using Docker Compose
-docker-compose exec db-backup ./db-backup backup \
+docker-compose exec dbu ./dbu backup \
   --db-type mysql \
   --host mysql \
   --username root \
@@ -328,10 +328,10 @@ zcat ./backups/mysql_mydb_full_2024-01-15_10-30-00.sql.gz | head -20
 ```bash
 # For large databases, consider:
 # 1. Use incremental backups
-./db-backup backup --db-type mysql --type incremental
+./dbu backup --db-type mysql --type incremental
 
 # 2. Backup specific tables only
-./db-backup backup --db-type mysql --tables "important_table1,important_table2"
+./dbu backup --db-type mysql --tables "important_table1,important_table2"
 
 # 3. Use parallel processing (if supported)
 # 4. Consider using MySQL's native tools for very large databases

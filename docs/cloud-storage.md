@@ -44,7 +44,7 @@ Create an IAM policy with the following permissions:
 ### Configuration
 
 ```yaml
-# ~/.db-backup.yaml
+# ~/.dbu.yaml
 storage:
   type: "cloud"
   path: "./temp"
@@ -71,7 +71,7 @@ export AWS_S3_BUCKET=your-backup-bucket
 #### Backup to S3
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -87,7 +87,7 @@ export AWS_S3_BUCKET=your-backup-bucket
 #### Restore from S3
 
 ```bash
-./db-backup restore \
+./dbu restore \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -102,7 +102,7 @@ export AWS_S3_BUCKET=your-backup-bucket
 
 ```bash
 # Backup with server-side encryption
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --storage cloud \
   --cloud-provider aws \
@@ -162,7 +162,7 @@ aws configure set default.s3.use_accelerate_endpoint true
 ### Configuration
 
 ```yaml
-# ~/.db-backup.yaml
+# ~/.dbu.yaml
 storage:
   type: "cloud"
   path: "./temp"
@@ -188,7 +188,7 @@ export GCP_BUCKET=your-backup-bucket
 #### Backup to GCS
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -204,7 +204,7 @@ export GCP_BUCKET=your-backup-bucket
 #### Restore from GCS
 
 ```bash
-./db-backup restore \
+./dbu restore \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -278,7 +278,7 @@ export GCP_BUCKET=your-backup-bucket
 ### Configuration
 
 ```yaml
-# ~/.db-backup.yaml
+# ~/.dbu.yaml
 storage:
   type: "cloud"
   path: "./temp"
@@ -304,7 +304,7 @@ export AZURE_CONTAINER=your-backup-container
 #### Backup to Azure Blob
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -320,7 +320,7 @@ export AZURE_CONTAINER=your-backup-container
 #### Restore from Azure Blob
 
 ```bash
-./db-backup restore \
+./dbu restore \
   --db-type mysql \
   --host localhost \
   --username root \
@@ -386,7 +386,7 @@ DB_PASS="mypassword"
 DB_NAME="mydb"
 
 # Backup to AWS S3
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host $DB_HOST \
   --username $DB_USER \
@@ -399,7 +399,7 @@ DB_NAME="mydb"
   --compress
 
 # Backup to Google Cloud Storage
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host $DB_HOST \
   --username $DB_USER \
@@ -412,7 +412,7 @@ DB_NAME="mydb"
   --compress
 
 # Backup to Azure Blob Storage
-./db-backup backup \
+./dbu backup \
   --db-type mysql \
   --host $DB_HOST \
   --username $DB_USER \

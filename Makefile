@@ -1,7 +1,7 @@
 # Database Backup Utility Makefile
 
 # Variables
-BINARY_NAME=db-backup
+BINARY_NAME=dbu
 BUILD_DIR=build
 VERSION=$(shell git describe --tags --always --dirty 2>/dev/null || echo "dev")
 LDFLAGS=-ldflags "-X main.version=$(VERSION)"

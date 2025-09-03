@@ -13,7 +13,7 @@ This guide covers using the Database Backup Utility with SQLite databases.
 ### Basic Connection Test
 
 ```bash
-./db-backup test \
+./dbu test \
   --db-type sqlite \
   --database /path/to/database.db
 ```
@@ -21,7 +21,7 @@ This guide covers using the Database Backup Utility with SQLite databases.
 ### Connection with Relative Path
 
 ```bash
-./db-backup test \
+./dbu test \
   --db-type sqlite \
   --database ./data/app.db
 ```
@@ -29,7 +29,7 @@ This guide covers using the Database Backup Utility with SQLite databases.
 ### Connection String Method
 
 ```bash
-./db-backup test \
+./dbu test \
   --db-type sqlite \
   --connection-string "/path/to/database.db"
 ```
@@ -39,7 +39,7 @@ This guide covers using the Database Backup Utility with SQLite databases.
 ### Full Database Backup
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type sqlite \
   --database /path/to/database.db \
   --type full \
@@ -49,7 +49,7 @@ This guide covers using the Database Backup Utility with SQLite databases.
 ### Backup to Custom Location
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type sqlite \
   --database /path/to/database.db \
   --storage local \
@@ -60,7 +60,7 @@ This guide covers using the Database Backup Utility with SQLite databases.
 ### Incremental Backup
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type sqlite \
   --database /path/to/database.db \
   --type incremental \
@@ -72,7 +72,7 @@ This guide covers using the Database Backup Utility with SQLite databases.
 ### Full Database Restore
 
 ```bash
-./db-backup restore \
+./dbu restore \
   --db-type sqlite \
   --database /path/to/database.db \
   --file ./backups/sqlite_database_full_2024-01-15_10-30-00.db.gz
@@ -81,7 +81,7 @@ This guide covers using the Database Backup Utility with SQLite databases.
 ### Restore to Different Location
 
 ```bash
-./db-backup restore \
+./dbu restore \
   --db-type sqlite \
   --database /path/to/new_database.db \
   --file ./backups/sqlite_database_full_2024-01-15_10-30-00.db.gz
@@ -92,7 +92,7 @@ This guide covers using the Database Backup Utility with SQLite databases.
 ### SQLite-Specific Configuration
 
 ```yaml
-# ~/.db-backup.yaml
+# ~/.dbu.yaml
 log:
   level: "info"
   format: "json"
@@ -132,7 +132,7 @@ BACKUP_DIR="/var/backups/sqlite"
 DATE=$(date +%Y%m%d_%H%M%S)
 
 # Create backup
-./db-backup backup \
+./dbu backup \
   --db-type sqlite \
   --database $DB_PATH \
   --type full \
@@ -175,7 +175,7 @@ DATABASES=(
 for db in "${DATABASES[@]}"; do
     echo "Backing up: $db"
 
-    ./db-backup backup \
+    ./dbu backup \
         --db-type sqlite \
         --database "$db" \
         --type full \
@@ -208,7 +208,7 @@ done
 docker run --rm \
   -v /path/to/database:/data \
   -v /path/to/backups:/backups \
-  db-backup:latest \
+  dbu:latest \
   backup \
   --db-type sqlite \
   --database /data/database.db \
@@ -226,7 +226,7 @@ docker run --rm \
 sqlite3 /path/to/database.db "PRAGMA journal_mode=WAL;"
 
 # Backup with WAL mode
-./db-backup backup \
+./dbu backup \
   --db-type sqlite \
   --database /path/to/database.db \
   --compress
@@ -239,7 +239,7 @@ sqlite3 /path/to/database.db "PRAGMA journal_mode=WAL;"
 sqlite3 /path/to/database.db "VACUUM; ANALYZE;"
 
 # Backup optimized database
-./db-backup backup \
+./dbu backup \
   --db-type sqlite \
   --database /path/to/database.db \
   --compress
@@ -255,7 +255,7 @@ sqlite3 /path/to/database.db ".schema" > schema.sql
 sqlite3 /path/to/database.db ".dump --data-only" > data.sql
 
 # Full backup
-./db-backup backup \
+./dbu backup \
   --db-type sqlite \
   --database /path/to/database.db \
   --compress
@@ -308,7 +308,7 @@ zcat ./backups/sqlite_database_full_2024-01-15_10-30-00.db.gz | head -20
 ```bash
 # For large databases, consider:
 # 1. Use incremental backups
-./db-backup backup --db-type sqlite --type incremental
+./dbu backup --db-type sqlite --type incremental
 
 # 2. Optimize database before backup
 sqlite3 /path/to/database.db "VACUUM; ANALYZE;"

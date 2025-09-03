@@ -4,7 +4,7 @@ services:
   # Example MySQL database for testing
   mysql:
     image: mysql:8.0
-    container_name: db-backup-mysql
+    container_name: dbu-mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: example_db
@@ -22,7 +22,7 @@ services:
   # Example PostgreSQL database for testing
   postgres:
     image: postgres:15
-    container_name: db-backup-postgres
+    container_name: dbu-postgres
     environment:
       POSTGRES_DB: example_db
       POSTGRES_USER: testuser
@@ -40,7 +40,7 @@ services:
   # Example MongoDB for testing
   mongodb:
     image: mongo:7
-    container_name: db-backup-mongodb
+    container_name: dbu-mongodb
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
@@ -56,9 +56,9 @@ services:
       retries: 5
 
   # Database backup utility
-  db-backup:
+  dbu:
     build: .
-    container_name: db-backup-utility
+    container_name: dbu-utility
     depends_on:
       mysql:
         condition: service_healthy
@@ -68,7 +68,7 @@ services:
         condition: service_healthy
     volumes:
       - ./backups:/backups
-      - ./config.example.yaml:/home/dbbackup/.db-backup.yaml
+      - ./config.example.yaml:/home/dbbackup/.dbu.yaml
     environment:
       - BACKUP_DIR=/backups
       - LOG_LEVEL=info

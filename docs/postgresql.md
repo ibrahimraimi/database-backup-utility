@@ -13,7 +13,7 @@ This guide covers using the Database Backup Utility with PostgreSQL databases.
 ### Basic Connection Test
 
 ```bash
-./db-backup test \
+./dbu test \
   --db-type postgres \
   --host localhost \
   --port 5432 \
@@ -25,7 +25,7 @@ This guide covers using the Database Backup Utility with PostgreSQL databases.
 ### Connection with Custom Port
 
 ```bash
-./db-backup test \
+./dbu test \
   --db-type postgres \
   --host 192.168.1.100 \
   --port 5433 \
@@ -37,7 +37,7 @@ This guide covers using the Database Backup Utility with PostgreSQL databases.
 ### Connection String Method
 
 ```bash
-./db-backup test \
+./dbu test \
   --db-type postgres \
   --connection-string "host=localhost port=5432 user=postgres password=mypassword dbname=mydb sslmode=disable"
 ```
@@ -47,7 +47,7 @@ This guide covers using the Database Backup Utility with PostgreSQL databases.
 ### Full Database Backup
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type postgres \
   --host localhost \
   --username postgres \
@@ -60,7 +60,7 @@ This guide covers using the Database Backup Utility with PostgreSQL databases.
 ### Selective Table Backup
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type postgres \
   --host localhost \
   --username postgres \
@@ -73,7 +73,7 @@ This guide covers using the Database Backup Utility with PostgreSQL databases.
 ### Backup to Custom Location
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type postgres \
   --host localhost \
   --username postgres \
@@ -87,7 +87,7 @@ This guide covers using the Database Backup Utility with PostgreSQL databases.
 ### Incremental Backup
 
 ```bash
-./db-backup backup \
+./dbu backup \
   --db-type postgres \
   --host localhost \
   --username postgres \
@@ -102,7 +102,7 @@ This guide covers using the Database Backup Utility with PostgreSQL databases.
 ### Full Database Restore
 
 ```bash
-./db-backup restore \
+./dbu restore \
   --db-type postgres \
   --host localhost \
   --username postgres \
@@ -114,7 +114,7 @@ This guide covers using the Database Backup Utility with PostgreSQL databases.
 ### Selective Table Restore
 
 ```bash
-./db-backup restore \
+./dbu restore \
   --db-type postgres \
   --host localhost \
   --username postgres \
@@ -127,7 +127,7 @@ This guide covers using the Database Backup Utility with PostgreSQL databases.
 ### Restore with Drop Existing Tables
 
 ```bash
-./db-backup restore \
+./dbu restore \
   --db-type postgres \
   --host localhost \
   --username postgres \
@@ -182,7 +182,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON SEQUENCES TO backup_us
 ### PostgreSQL-Specific Configuration
 
 ```yaml
-# ~/.db-backup.yaml
+# ~/.dbu.yaml
 log:
   level: "info"
   format: "json"
@@ -229,7 +229,7 @@ BACKUP_DIR="/var/backups/postgresql"
 DATE=$(date +%Y%m%d_%H%M%S)
 
 # Create backup
-./db-backup backup \
+./dbu backup \
   --db-type postgres \
   --host $DB_HOST \
   --username $DB_USER \
@@ -271,7 +271,7 @@ fi
 
 ```bash
 # Backup PostgreSQL running in Docker
-./db-backup backup \
+./dbu backup \
   --db-type postgres \
   --host localhost \
   --port 5432 \
@@ -281,7 +281,7 @@ fi
   --compress
 
 # Using Docker Compose
-docker-compose exec db-backup ./db-backup backup \
+docker-compose exec dbu ./dbu backup \
   --db-type postgres \
   --host postgres \
   --username postgres \
@@ -296,12 +296,12 @@ docker-compose exec db-backup ./db-backup backup \
 
 ```bash
 # Test SSL connection
-./db-backup test \
+./dbu test \
   --db-type postgres \
   --connection-string "host=localhost port=5432 user=postgres password=mypassword dbname=mydb sslmode=require"
 
 # Backup with SSL
-./db-backup backup \
+./dbu backup \
   --db-type postgres \
   --connection-string "host=localhost port=5432 user=postgres password=mypassword dbname=mydb sslmode=require" \
   --compress
@@ -365,10 +365,10 @@ zcat ./backups/postgres_mydb_full_2024-01-15_10-30-00.sql.gz | head -20
 ```bash
 # For large databases, consider:
 # 1. Use incremental backups
-./db-backup backup --db-type postgres --type incremental
+./dbu backup --db-type postgres --type incremental
 
 # 2. Backup specific tables only
-./db-backup backup --db-type postgres --tables "important_table1,important_table2"
+./dbu backup --db-type postgres --tables "important_table1,important_table2"
 
 # 3. Use parallel processing (if supported)
 # 4. Consider using PostgreSQL's native pg_dump for very large databases

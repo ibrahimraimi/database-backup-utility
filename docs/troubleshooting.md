@@ -20,7 +20,7 @@ go clean -modcache
 go mod download
 
 # Rebuild
-go build -o build/db-backup .
+go build -o build/dbu .
 ```
 
 #### Missing Dependencies
@@ -33,7 +33,7 @@ go build -o build/db-backup .
 # Remove go.sum and regenerate
 rm go.sum
 go mod tidy
-go build -o build/db-backup .
+go build -o build/dbu .
 ```
 
 #### CGO Issues (SQLite)
@@ -54,7 +54,7 @@ sudo yum install sqlite-devel
 brew install sqlite
 
 # Rebuild with CGO
-CGO_ENABLED=1 go build -o build/db-backup .
+CGO_ENABLED=1 go build -o build/dbu .
 ```
 
 ### Database Connection Issues
@@ -275,7 +275,7 @@ gunzip -t ./backups/mysql_mydb_full_2024-01-15_10-30-00.sql.gz
 zcat ./backups/mysql_mydb_full_2024-01-15_10-30-00.sql.gz | head -20
 
 # Recreate backup
-./db-backup backup --db-type mysql --database mydb --compress
+./dbu backup --db-type mysql --database mydb --compress
 ```
 
 ### Restore Issues
@@ -294,7 +294,7 @@ mysql -u root -p -e "SHOW GRANTS FOR 'restore_user'@'%';"
 mysql -u root -p -e "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX, LOCK TABLES ON mydb.* TO 'restore_user'@'%';"
 
 # Test restore with different user
-./db-backup restore --db-type mysql --username root --password root_password --database mydb --file backup.sql.gz
+./dbu restore --db-type mysql --username root --password root_password --database mydb --file backup.sql.gz
 ```
 
 #### Restore Data Issues
@@ -311,7 +311,7 @@ zcat backup.sql.gz | grep "INSERT INTO"
 mysql -u root -p -e "SELECT COUNT(*) FROM mydb.users;"
 
 # Restore with verbose logging
-./db-backup --log-level debug restore --db-type mysql --database mydb --file backup.sql.gz
+./dbu --log-level debug restore --db-type mysql --database mydb --file backup.sql.gz
 
 # Check database state after restore
 mysql -u root -p -e "SELECT COUNT(*) FROM mydb.users;"
@@ -435,30 +435,30 @@ echo $DISCORD_WEBHOOK_URL
 
 ```bash
 # Enable debug logging
-./db-backup --log-level debug backup --db-type mysql --database mydb
+./dbu --log-level debug backup --db-type mysql --database mydb
 
 # Enable debug logging with text format
-./db-backup --log-level debug --log-format text backup --db-type mysql --database mydb
+./dbu --log-level debug --log-format text backup --db-type mysql --database mydb
 ```
 
 ### Verbose Output
 
 ```bash
 # Test connection with verbose output
-./db-backup --log-level debug test --db-type mysql --host localhost --username root --password mypass --database mydb
+./dbu --log-level debug test --db-type mysql --host localhost --username root --password mypass --database mydb
 
 # Backup with verbose output
-./db-backup --log-level debug backup --db-type mysql --database mydb --compress
+./dbu --log-level debug backup --db-type mysql --database mydb --compress
 ```
 
 ### Check Configuration
 
 ```bash
 # Check configuration file
-cat ~/.db-backup.yaml
+cat ~/.dbu.yaml
 
 # Validate configuration
-./db-backup --config ~/.db-backup.yaml test --db-type mysql --database mydb
+./dbu --config ~/.dbu.yaml test --db-type mysql --database mydb
 ```
 
 ### Network Diagnostics
@@ -502,13 +502,13 @@ dmesg | grep -i error
 
 ```bash
 # Use incremental backups
-./db-backup backup --db-type mysql --type incremental --database mydb
+./dbu backup --db-type mysql --type incremental --database mydb
 
 # Backup specific tables only
-./db-backup backup --db-type mysql --tables "important_table1,important_table2" --database mydb
+./dbu backup --db-type mysql --tables "important_table1,important_table2" --database mydb
 
 # Use compression
-./db-backup backup --db-type mysql --compress --database mydb
+./dbu backup --db-type mysql --compress --database mydb
 
 # Optimize database before backup
 mysql -u root -p -e "OPTIMIZE TABLE mydb.important_table;"
@@ -521,7 +521,7 @@ mysql -u root -p -e "OPTIMIZE TABLE mydb.important_table;"
 ```bash
 # Check memory usage
 free -h
-top -p $(pgrep db-backup)
+top -p $(pgrep dbu)
 
 # Increase swap space
 sudo fallocate -l 2G /swapfile
@@ -539,14 +539,14 @@ mysql -u root -p -e "SET GLOBAL innodb_buffer_pool_size = 1G;"
 
 ```bash
 # Use local backup first, then upload to cloud
-./db-backup backup --db-type mysql --storage local --database mydb
-./db-backup backup --db-type mysql --storage cloud --database mydb
+./dbu backup --db-type mysql --storage local --database mydb
+./dbu backup --db-type mysql --storage cloud --database mydb
 
 # Use compression to reduce network traffic
-./db-backup backup --db-type mysql --compress --database mydb
+./dbu backup --db-type mysql --compress --database mydb
 
 # Use parallel processing if available
-./db-backup backup --db-type mysql --parallel 4 --database mydb
+./dbu backup --db-type mysql --parallel 4 --database mydb
 ```
 
 ## Recovery Procedures
@@ -560,7 +560,7 @@ mysql -u root -p -e "SET GLOBAL innodb_buffer_pool_size = 1G;"
 sudo systemctl stop mysql
 
 # Restore from backup
-./db-backup restore --db-type mysql --database mydb --file backup.sql.gz
+./dbu restore --db-type mysql --database mydb --file backup.sql.gz
 
 # Start MySQL service
 sudo systemctl start mysql
@@ -576,7 +576,7 @@ mysql -u root -p -e "SELECT COUNT(*) FROM mydb.users;"
 sudo systemctl stop postgresql
 
 # Restore from backup
-./db-backup restore --db-type postgres --database mydb --file backup.sql.gz
+./dbu restore --db-type postgres --database mydb --file backup.sql.gz
 
 # Start PostgreSQL service
 sudo systemctl start postgresql
@@ -592,7 +592,7 @@ psql -h localhost -U postgres -d mydb -c "SELECT COUNT(*) FROM users;"
 sudo systemctl stop mongod
 
 # Restore from backup
-./db-backup restore --db-type mongodb --database mydb --file backup.bson.gz
+./dbu restore --db-type mongodb --database mydb --file backup.bson.gz
 
 # Start MongoDB service
 sudo systemctl start mongod
@@ -609,7 +609,7 @@ db.users.countDocuments()
 sudo systemctl stop your-app
 
 # Restore from backup
-./db-backup restore --db-type sqlite --database /path/to/database.db --file backup.db.gz
+./dbu restore --db-type sqlite --database /path/to/database.db --file backup.db.gz
 
 # Start application
 sudo systemctl start your-app
@@ -652,10 +652,10 @@ mysql -u root -p -e "SHOW SLAVE STATUS\G"
 
 ```bash
 # Check application logs
-tail -f /var/log/db-backup.log
+tail -f /var/log/dbu.log
 
 # Check system logs
-journalctl -u db-backup -f
+journalctl -u dbu -f
 
 # Check database logs
 tail -f /var/log/mysql/error.log

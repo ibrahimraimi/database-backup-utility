@@ -4,7 +4,7 @@ This guide covers all configuration options available in the Database Backup Uti
 
 ## Configuration File
 
-The utility uses YAML configuration files. The default location is `~/.db-backup.yaml`.
+The utility uses YAML configuration files. The default location is `~/.dbu.yaml`.
 
 ### Basic Configuration Structure
 
@@ -195,7 +195,7 @@ database:
     ssl_mode: "disable"
     connection_timeout: 30
     statement_timeout: 300
-    application_name: "db-backup-utility"
+    application_name: "dbu-utility"
     timezone: "UTC"
 ```
 
@@ -296,13 +296,13 @@ Configuration values can be overridden using command line flags:
 
 ```bash
 # Override log level
-./db-backup --log-level debug backup --db-type mysql ...
+./dbu --log-level debug backup --db-type mysql ...
 
 # Override storage path
-./db-backup backup --db-type mysql --path /custom/backup/path ...
+./dbu backup --db-type mysql --path /custom/backup/path ...
 
 # Override cloud provider
-./db-backup backup --db-type mysql --storage cloud --cloud-provider aws --bucket my-bucket ...
+./dbu backup --db-type mysql --storage cloud --cloud-provider aws --bucket my-bucket ...
 ```
 
 ## Configuration Validation
@@ -311,7 +311,7 @@ The utility validates configuration on startup:
 
 ```bash
 # Test configuration
-./db-backup --config /path/to/config.yaml test --db-type mysql ...
+./dbu --config /path/to/config.yaml test --db-type mysql ...
 ```
 
 ## Multiple Configuration Files
@@ -320,13 +320,13 @@ You can use different configuration files for different environments:
 
 ```bash
 # Development configuration
-./db-backup --config ~/.db-backup-dev.yaml backup --db-type mysql ...
+./dbu --config ~/.dbu-dev.yaml backup --db-type mysql ...
 
 # Production configuration
-./db-backup --config ~/.db-backup-prod.yaml backup --db-type mysql ...
+./dbu --config ~/.dbu-prod.yaml backup --db-type mysql ...
 
 # Staging configuration
-./db-backup --config ~/.db-backup-staging.yaml backup --db-type mysql ...
+./dbu --config ~/.dbu-staging.yaml backup --db-type mysql ...
 ```
 
 ## Configuration Examples
@@ -334,7 +334,7 @@ You can use different configuration files for different environments:
 ### Development Environment
 
 ```yaml
-# ~/.db-backup-dev.yaml
+# ~/.dbu-dev.yaml
 log:
   level: "debug"
   format: "text"
@@ -355,7 +355,7 @@ database:
 ### Production Environment
 
 ```yaml
-# ~/.db-backup-prod.yaml
+# ~/.dbu-prod.yaml
 log:
   level: "info"
   format: "json"
@@ -385,7 +385,7 @@ database:
 ### Staging Environment
 
 ```yaml
-# ~/.db-backup-staging.yaml
+# ~/.dbu-staging.yaml
 log:
   level: "info"
   format: "json"
@@ -420,8 +420,8 @@ database:
 
 ```bash
 # Secure configuration file
-chmod 600 ~/.db-backup.yaml
-chown $USER:$USER ~/.db-backup.yaml
+chmod 600 ~/.dbu.yaml
+chown $USER:$USER ~/.dbu.yaml
 
 # Secure backup directory
 chmod 700 /var/backups/database-backup-utility
@@ -448,17 +448,17 @@ database:
 
 ```bash
 # Check if configuration file exists
-ls -la ~/.db-backup.yaml
+ls -la ~/.dbu.yaml
 
 # Create default configuration
-cp config.example.yaml ~/.db-backup.yaml
+cp config.example.yaml ~/.dbu.yaml
 ```
 
 #### Invalid YAML Syntax
 
 ```bash
 # Validate YAML syntax
-python -c "import yaml; yaml.safe_load(open('~/.db-backup.yaml'))"
+python -c "import yaml; yaml.safe_load(open('~/.dbu.yaml'))"
 
 # Or use online YAML validator
 ```
