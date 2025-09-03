@@ -174,7 +174,7 @@ FLUSH PRIVILEGES;
 ### MySQL-Specific Configuration
 
 ```yaml
-# ~/.dbu.yaml
+# ~/dbu.yaml
 log:
   level: "info"
   format: "json"

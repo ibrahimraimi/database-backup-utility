@@ -31,7 +31,7 @@ func init() {
 	testCmd.Flags().String("connection-string", "", "Full database connection string")
 
 	// Mark required flags
-	testCmd.MarkFlagRequired("db-type")
+	_ = testCmd.MarkFlagRequired("db-type")
 }
 
 func runTest(cmd *cobra.Command, args []string) error {

@@ -195,10 +195,10 @@ func (m *Manager) createMySQLBackup(backupPath string) error {
 	defer file.Close()
 
 	// Write backup header
-	file.WriteString("-- MySQL Backup\n")
-	file.WriteString(fmt.Sprintf("-- Database: %s\n", m.config.Database))
-	file.WriteString(fmt.Sprintf("-- Created: %s\n", time.Now().Format("2006-01-02 15:04:05")))
-	file.WriteString("-- \n\n")
+	_, _ = file.WriteString("-- MySQL Backup\n")
+	_, _ = file.WriteString(fmt.Sprintf("-- Database: %s\n", m.config.Database))
+	_, _ = file.WriteString(fmt.Sprintf("-- Created: %s\n", time.Now().Format("2006-01-02 15:04:05")))
+	_, _ = file.WriteString("-- \n\n")
 
 	// Backup each table
 	for _, table := range tables {
@@ -235,10 +235,10 @@ func (m *Manager) createPostgreSQLBackup(backupPath string) error {
 	defer file.Close()
 
 	// Write backup header
-	file.WriteString("-- PostgreSQL Backup\n")
-	file.WriteString(fmt.Sprintf("-- Database: %s\n", m.config.Database))
-	file.WriteString(fmt.Sprintf("-- Created: %s\n", time.Now().Format("2006-01-02 15:04:05")))
-	file.WriteString("-- \n\n")
+	_, _ = file.WriteString("-- PostgreSQL Backup\n")
+	_, _ = file.WriteString(fmt.Sprintf("-- Database: %s\n", m.config.Database))
+	_, _ = file.WriteString(fmt.Sprintf("-- Created: %s\n", time.Now().Format("2006-01-02 15:04:05")))
+	_, _ = file.WriteString("-- \n\n")
 
 	// Backup each table
 	for _, table := range tables {
@@ -275,10 +275,10 @@ func (m *Manager) createMongoDBBackup(backupPath string) error {
 	defer file.Close()
 
 	// Write backup header
-	file.WriteString("-- MongoDB Backup\n")
-	file.WriteString(fmt.Sprintf("-- Database: %s\n", m.config.Database))
-	file.WriteString(fmt.Sprintf("-- Created: %s\n", time.Now().Format("2006-01-02 15:04:05")))
-	file.WriteString("-- \n\n")
+	_, _ = file.WriteString("-- MongoDB Backup\n")
+	_, _ = file.WriteString(fmt.Sprintf("-- Database: %s\n", m.config.Database))
+	_, _ = file.WriteString(fmt.Sprintf("-- Created: %s\n", time.Now().Format("2006-01-02 15:04:05")))
+	_, _ = file.WriteString("-- \n\n")
 
 	// Backup each collection
 	for _, collection := range collections {
@@ -387,21 +387,21 @@ func (m *Manager) getMongoDBCollections() ([]string, error) {
 
 func (m *Manager) backupMySQLTable(file *os.File, table string) error {
 	// Implementation would dump table data
-	file.WriteString(fmt.Sprintf("-- Table: %s\n", table))
-	file.WriteString(fmt.Sprintf("SELECT * FROM %s;\n\n", table))
+	_, _ = file.WriteString(fmt.Sprintf("-- Table: %s\n", table))
+	_, _ = file.WriteString(fmt.Sprintf("SELECT * FROM %s;\n\n", table))
 	return nil
 }
 
 func (m *Manager) backupPostgreSQLTable(file *os.File, table string) error {
 	// Implementation would dump table data
-	file.WriteString(fmt.Sprintf("-- Table: %s\n", table))
-	file.WriteString(fmt.Sprintf("SELECT * FROM %s;\n\n", table))
+	_, _ = file.WriteString(fmt.Sprintf("-- Table: %s\n", table))
+	_, _ = file.WriteString(fmt.Sprintf("SELECT * FROM %s;\n\n", table))
 	return nil
 }
 
 func (m *Manager) backupMongoDBCollection(file *os.File, collection string) error {
 	// Implementation would dump collection data
-	file.WriteString(fmt.Sprintf("-- Collection: %s\n", collection))
-	file.WriteString(fmt.Sprintf("db.%s.find();\n\n", collection))
+	_, _ = file.WriteString(fmt.Sprintf("-- Collection: %s\n", collection))
+	_, _ = file.WriteString(fmt.Sprintf("db.%s.find();\n\n", collection))
 	return nil
 }

@@ -205,7 +205,7 @@ db.createUser({
 ### MongoDB-Specific Configuration
 
 ```yaml
-# ~/.dbu.yaml
+# ~/dbu.yaml
 log:
   level: "info"
   format: "json"

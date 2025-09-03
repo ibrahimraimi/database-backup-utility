@@ -136,7 +136,7 @@ Before creating backups, always test your database connection:
 
 ### Basic Configuration
 
-Create a configuration file at `~/.dbu.yaml`:
+Create a configuration file at `~/dbu.yaml`:
 
 ```yaml
 # Logging configuration
@@ -178,11 +178,11 @@ export AWS_REGION=us-east-1
 
 ### Global Flags
 
-| Flag           | Description                          | Default       |
-| -------------- | ------------------------------------ | ------------- |
-| `--config`     | Path to configuration file           | `~/.dbu.yaml` |
-| `--log-level`  | Log level (debug, info, warn, error) | `info`        |
-| `--log-format` | Log format (json, text)              | `json`        |
+| Flag           | Description                          | Default      |
+| -------------- | ------------------------------------ | ------------ |
+| `--config`     | Path to configuration file           | `~/dbu.yaml` |
+| `--log-level`  | Log level (debug, info, warn, error) | `info`       |
+| `--log-format` | Log format (json, text)              | `json`       |
 
 ### Database Connection Flags
 

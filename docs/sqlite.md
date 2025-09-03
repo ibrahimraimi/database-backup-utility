@@ -92,7 +92,7 @@ This guide covers using the Database Backup Utility with SQLite databases.
 ### SQLite-Specific Configuration
 
 ```yaml
-# ~/.dbu.yaml
+# ~/dbu.yaml
 log:
   level: "info"
   format: "json"

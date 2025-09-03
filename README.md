@@ -127,7 +127,7 @@ go install github.com/ibrahimraimi/database-backup-utility@latest
 
 ## Configuration
 
-Create a configuration file at `~/.dbu.yaml`:
+Create a configuration file at `~/dbu.yaml`:
 
 ```yaml
 # Logging configuration
@@ -174,7 +174,7 @@ export AZURE_STORAGE_KEY=your_storage_key
 
 ### Global Flags
 
-- `--config`: Path to configuration file (default: ~/.dbu.yaml)
+- `--config`: Path to configuration file (default: ~/dbu.yaml)
 - `--log-level`: Log level (debug, info, warn, error)
 - `--log-format`: Log format (json, text)
 

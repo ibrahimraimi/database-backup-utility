@@ -55,8 +55,8 @@ func init() {
 	backupCmd.Flags().StringVar(&cloudRegion, "region", "", "Cloud storage region")
 
 	// Mark required flags
-	backupCmd.MarkFlagRequired("db-type")
-	backupCmd.MarkFlagRequired("database")
+	_ = backupCmd.MarkFlagRequired("db-type")
+	_ = backupCmd.MarkFlagRequired("database")
 }
 
 func runBackup(cmd *cobra.Command, args []string) error {

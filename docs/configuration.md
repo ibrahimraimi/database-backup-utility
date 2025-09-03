@@ -4,7 +4,7 @@ This guide covers all configuration options available in the Database Backup Uti
 
 ## Configuration File
 
-The utility uses YAML configuration files. The default location is `~/.dbu.yaml`.
+The utility uses YAML configuration files. The default location is `~/dbu.yaml`.
 
 ### Basic Configuration Structure
 
@@ -420,8 +420,8 @@ database:
 
 ```bash
 # Secure configuration file
-chmod 600 ~/.dbu.yaml
-chown $USER:$USER ~/.dbu.yaml
+chmod 600 ~/dbu.yaml
+chown $USER:$USER ~/dbu.yaml
 
 # Secure backup directory
 chmod 700 /var/backups/database-backup-utility
@@ -448,17 +448,17 @@ database:
 
 ```bash
 # Check if configuration file exists
-ls -la ~/.dbu.yaml
+ls -la ~/dbu.yaml
 
 # Create default configuration
-cp config.example.yaml ~/.dbu.yaml
+cp config.example.yaml ~/dbu.yaml
 ```
 
 #### Invalid YAML Syntax
 
 ```bash
 # Validate YAML syntax
-python -c "import yaml; yaml.safe_load(open('~/.dbu.yaml'))"
+python -c "import yaml; yaml.safe_load(open('~/dbu.yaml'))"
 
 # Or use online YAML validator
 ```

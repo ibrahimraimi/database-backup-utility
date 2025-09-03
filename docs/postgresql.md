@@ -182,7 +182,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON SEQUENCES TO backup_us
 ### PostgreSQL-Specific Configuration
 
 ```yaml
-# ~/.dbu.yaml
+# ~/dbu.yaml
 log:
   level: "info"
   format: "json"

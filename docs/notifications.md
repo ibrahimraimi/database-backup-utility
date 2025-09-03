@@ -25,7 +25,7 @@ This guide covers setting up and configuring notifications for the Database Back
 ### Configuration
 
 ```yaml
-# ~/.dbu.yaml
+# ~/dbu.yaml
 notify:
   enabled: true
   type: "slack"
@@ -129,7 +129,7 @@ export SLACK_BOT_TOKEN="xoxb-your-bot-token"
 ### Configuration
 
 ```yaml
-# ~/.dbu.yaml
+# ~/dbu.yaml
 notify:
   enabled: true
   type: "discord"
@@ -231,7 +231,7 @@ export DISCORD_CHANNEL="backups"
 ### Multiple Notification Channels
 
 ```yaml
-# ~/.dbu.yaml
+# ~/dbu.yaml
 notify:
   enabled: true
   type: "slack"
@@ -251,7 +251,7 @@ notify:
 ### Conditional Notifications
 
 ```yaml
-# ~/.dbu.yaml
+# ~/dbu.yaml
 notify:
   enabled: true
   type: "slack"
@@ -271,7 +271,7 @@ notify:
 ### Notification Templates
 
 ```yaml
-# ~/.dbu.yaml
+# ~/dbu.yaml
 notify:
   enabled: true
   type: "slack"

@@ -44,7 +44,7 @@ Create an IAM policy with the following permissions:
 ### Configuration
 
 ```yaml
-# ~/.dbu.yaml
+# ~/dbu.yaml
 storage:
   type: "cloud"
   path: "./temp"
@@ -162,7 +162,7 @@ aws configure set default.s3.use_accelerate_endpoint true
 ### Configuration
 
 ```yaml
-# ~/.dbu.yaml
+# ~/dbu.yaml
 storage:
   type: "cloud"
   path: "./temp"
@@ -278,7 +278,7 @@ export GCP_BUCKET=your-backup-bucket
 ### Configuration
 
 ```yaml
-# ~/.dbu.yaml
+# ~/dbu.yaml
 storage:
   type: "cloud"
   path: "./temp"

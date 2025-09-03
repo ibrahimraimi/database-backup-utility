@@ -1,6 +1,7 @@
 package database
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 	"strings"
@@ -117,7 +118,7 @@ func (m *Manager) testSQLConnection() error {
 func (m *Manager) testMongoConnection() error {
 	connectionString := m.getMongoConnectionString()
 
-	client, err := mongo.Connect(nil, options.Client().ApplyURI(connectionString))
+	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(connectionString))
 	if err != nil {
 		return fmt.Errorf("failed to connect to MongoDB: %w", err)
 	}
@@ -212,7 +213,7 @@ func (m *Manager) Close() error {
 		return m.db.Close()
 	}
 	if m.mongo != nil {
-		return m.mongo.Disconnect(nil)
+		return m.mongo.Disconnect(context.TODO())
 	}
 	return nil
 }

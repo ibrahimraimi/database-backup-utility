@@ -455,10 +455,10 @@ echo $DISCORD_WEBHOOK_URL
 
 ```bash
 # Check configuration file
-cat ~/.dbu.yaml
+cat ~/dbu.yaml
 
 # Validate configuration
-./dbu --config ~/.dbu.yaml test --db-type mysql --database mydb
+./dbu --config ~/dbu.yaml test --db-type mysql --database mydb
 ```
 
 ### Network Diagnostics

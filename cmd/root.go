@@ -30,13 +30,13 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	// Global flags
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.dbu.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/dbu.yaml)")
 	rootCmd.PersistentFlags().String("log-level", "info", "log level (debug, info, warn, error)")
 	rootCmd.PersistentFlags().String("log-format", "json", "log format (json, text)")
 
 	// Bind flags to viper
-	viper.BindPFlag("log.level", rootCmd.PersistentFlags().Lookup("log-level"))
-	viper.BindPFlag("log.format", rootCmd.PersistentFlags().Lookup("log-format"))
+	_ = viper.BindPFlag("log.level", rootCmd.PersistentFlags().Lookup("log-level"))
+	_ = viper.BindPFlag("log.format", rootCmd.PersistentFlags().Lookup("log-format"))
 }
 
 // initConfig reads in config file and ENV variables if set.

@@ -65,7 +65,7 @@ func Load() (*Config, error) {
 		return nil, fmt.Errorf("failed to get home directory: %w", err)
 	}
 
-	configPath := filepath.Join(homeDir, ".dbu.yaml")
+	configPath := filepath.Join(homeDir, "dbu.yaml")
 	viper.SetConfigFile(configPath)
 
 	// Read config file if it exists
@@ -106,7 +106,7 @@ func (c *Config) Save() error {
 		return fmt.Errorf("failed to get home directory: %w", err)
 	}
 
-	configPath := filepath.Join(homeDir, ".dbu.yaml")
+	configPath := filepath.Join(homeDir, "dbu.yaml")
 
 	// Set values in viper
 	viper.Set("log_level", c.LogLevel)

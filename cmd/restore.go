@@ -43,9 +43,9 @@ func init() {
 	restoreCmd.Flags().BoolVar(&dropExisting, "drop-existing", false, "Drop existing tables before restore")
 
 	// Mark required flags
-	restoreCmd.MarkFlagRequired("db-type")
-	restoreCmd.MarkFlagRequired("database")
-	restoreCmd.MarkFlagRequired("file")
+	_ = restoreCmd.MarkFlagRequired("db-type")
+	_ = restoreCmd.MarkFlagRequired("database")
+	_ = restoreCmd.MarkFlagRequired("file")
 }
 
 func runRestore(cmd *cobra.Command, args []string) error {
